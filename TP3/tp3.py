@@ -12,11 +12,11 @@ else:
 
 cap       = cv2.VideoCapture(filename)
 
-fourcc    = cv2.VideoWriter_fourcc('X','V','I','D') #Formato
+fourcc    = cv2.VideoWriter_fourcc('M','J','P','G') #Formato
 fps       = cap.get(cv2.CAP_PROP_FPS)
 alto      = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 ancho     = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-out       = cv2.VideoWriter('videoOut.mkv', fourcc, fps, (ancho,alto))
+out       = cv2.VideoWriter('videoOut.avi', fourcc, fps, (ancho,alto))
 
 delay     = int((1/fps)*1000)
 
