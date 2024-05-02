@@ -57,9 +57,9 @@ counter  = 0
 (x2, y2) = (-1, -1)
 (x3, y3) = (-1, -1)
 
-img     = cv2.imread ('perros.jpeg', 1)
+img     = cv2.imread ('perros.jpeg', 0)
 img_aux = img.copy()
-img2    = cv2.imread ('mujer_tapando.jpeg', 1)
+img2    = cv2.imread ('mujer_tapando.jpeg', 0)
 
 cv2.namedWindow('image')
 cv2.setMouseCallback('image', select_image)
@@ -76,34 +76,43 @@ while(1):
         break
 
     if(counter==3):
+        x4=(x2-x1)+x3
+        y4=(y2-y1)+y3
+
         srcTri = np.array( [[0,0],
                             [img2.shape[1] - 1, 0],
                             [0, img2.shape[0] - 1]] ).astype(np.float32)
         dstTri = np.array( [[x1, y1],
                             [x2, y2],
-                            [x3, y3]] ).astype(np.float32)
+                            [x3, y3],
+                            [x4, y4]] ).astype(np.float32)
         
-        M = cv2.getAffineTransform(srcTri, dstTri)
+        M = cv2.getAffineTransform(srcTri, dstTri[:3])
         
         transformed_img = cv2.warpAffine(img2, M, (img.shape[1], img.shape[0]))
 
-        print(transformed_img.shape[:2])
-        print(img.shape[:2])
 
-        color = np.array([255], dtype=np.float32)
         mask = np.zeros(img.shape[:2], dtype=np.uint8)
-        cv2.fillPoly(mask, [dstTri.astype(int)], (255,255,255))
+        cv2.fillPoly(mask, [dstTri[:3].astype(int)], (255,255,255))
+        cv2.fillPoly(mask, [dstTri[1:].astype(int)], (255,255,255))
         
-       # Calcula la imagen mezclada con la imagen original
-        img_with_transformed = cv2.addWeighted(img, 1, transformed_img, 0.9, 0)
-        # Máscara inversa
-        mask_inv = cv2.bitwise_not(mask)
-        # Combinar la imagen original con la imagen transformada usando la máscara
-        img = cv2.bitwise_and(img_with_transformed, img_with_transformed, mask=mask_inv)
-        img = cv2.add(img, transformed_img)
+        # Crear una imagen combinada del mismo tamaño que la imagen original
+        img_combinada = np.zeros_like(img, dtype=np.uint8)
+        # Aplicar la máscara para combinar las dos imágenes
+        for c in range(img.shape[2]):
+            img_combinada[:,:,c] = np.where(mask == 0, img[:,:,c], transformed_img[:,:,c])
 
-        cv2.imwrite('resultado.png', transformed_img)
-        cv2.imwrite('mask.png', mask)
+        #img_combinada[:] = np.where(mask == 0, img[:], transformed_img[:])
+
+       ## Calcula la imagen mezclada con la imagen original
+       # img_with_transformed = cv2.addWeighted(img, 1, transformed_img, 0.9, 0)
+       # # Máscara inversa
+       # mask_inv = cv2.bitwise_not(mask)
+       # # Combinar la imagen original con la imagen transformada usando la máscara
+       # img = cv2.bitwise_and(img_with_transformed, img_with_transformed, mask=mask_inv)
+       # img = cv2.add(img, transformed_img)
+        img[:]= img_combinada
+        cv2.imwrite('resultado.png', img_combinada)
         counter += 1
 
 cv2.destroyAllWindows()
