@@ -22,15 +22,12 @@ def select_image(event, x, y, flags, param):
             if(counter==0):
                 (x1, y1) = (x, y)
                 cv2.circle(img, (x,y), 5, (255,0,255), -1)
-                counter += 1
             elif(counter==1):
                 (x2, y2) = (x, y)
                 cv2.circle(img, (x,y), 5, (255,0,255), -1)
-                counter += 1
             elif(counter==2):
                 (x3, y3) = (x, y)
                 cv2.circle(img, (x,y), 5, (255,0,255), -1)
-                counter += 1
     elif event == cv2.EVENT_LBUTTONUP:
         drawing = False
         if(counter==0):
@@ -57,9 +54,9 @@ counter  = 0
 (x2, y2) = (-1, -1)
 (x3, y3) = (-1, -1)
 
-img     = cv2.imread ('perros.jpeg', 0)
+img     = cv2.imread('perros.jpeg', 1)
 img_aux = img.copy()
-img2    = cv2.imread ('mujer_tapando.jpeg', 0)
+img2    = cv2.imread('mujer_tapando.jpeg', 1)
 
 cv2.namedWindow('image')
 cv2.setMouseCallback('image', select_image)
@@ -76,22 +73,22 @@ while(1):
         break
 
     if(counter==3):
-        x4=(x2-x1)+x3
-        y4=(y2-y1)+y3
 
         srcTri = np.array( [[0,0],
                             [img2.shape[1] - 1, 0],
                             [0, img2.shape[0] - 1]] ).astype(np.float32)
         dstTri = np.array( [[x1, y1],
                             [x2, y2],
-                            [x3, y3],
-                            [x4, y4]] ).astype(np.float32)
+                            [x3, y3]] ).astype(np.float32)
         
-        M = cv2.getAffineTransform(srcTri, dstTri[:3])
+        M = cv2.getAffineTransform(srcTri, dstTri)
         
         transformed_img = cv2.warpAffine(img2, M, (img.shape[1], img.shape[0]))
 
 
+        x4=(x2-x1)+x3
+        y4=(y2-y1)+y3
+        dstTri = np.append(dstTri, [[x4,y4]],axis=0).astype(np.float32)
         mask = np.zeros(img.shape[:2], dtype=np.uint8)
         cv2.fillPoly(mask, [dstTri[:3].astype(int)], (255,255,255))
         cv2.fillPoly(mask, [dstTri[1:].astype(int)], (255,255,255))
