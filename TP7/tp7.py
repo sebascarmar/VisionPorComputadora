@@ -170,9 +170,9 @@ while(1):
         # Controla que se ejecute una sola vez
         if(new_img == False):
             afin_mode = True
-            img     = cv2.imread ('perros.jpeg', 1)
+            img     = cv2.imread('bombonera.png', 1)
             img_aux = img.copy()
-            img2    = cv2.imread('mujer_tapando.jpeg', 1)
+            img2    = cv2.imread('escudo.png', 1)
             new_img = True
         
         # Una vez que se hayan seleccionado los 3 puntos, llama a la transformada
