@@ -34,3 +34,10 @@ def flip(image, mode):
 
     return flipped
 
+def afin(image, srcTri, dstTri, size):
+    # Obtiene la matriz de transformación
+    M = cv2.getAffineTransform(srcTri, dstTri)
+    # Aplica la transformada afín a la imagen
+    transformed_img = cv2.warpAffine(image, M, size)
+
+    return transformed_img
