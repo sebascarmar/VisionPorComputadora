@@ -144,7 +144,7 @@ def afin_y_combinacion(image2, x1, y1, x2, y2, x3, y3, image1):
                         [x3, y3]] ).astype(np.float32)
 
     aux = transform.afin(image2,srcTri, dstTri,(image1.shape[1], image1.shape[0]))
-    cv2.imwrite('afin.png', aux)
+    cv2.imwrite('o_afin.png', aux)
 
     combination = img_inside_img(dstTri, image1, aux)
 
@@ -212,30 +212,30 @@ while(1):
         img = img_aux.copy()
 
     elif(k == ord('g')): # guarda recorte selccionado
-        cv2.imwrite('captura.png', img_aux[yi:yf,xi:xf])
+        cv2.imwrite('o_captura.png', img_aux[yi:yf,xi:xf])
 
     elif(k == ord('e')): # transformación ecuclidiana
         dst = euclidiana(img_aux[yi:yf,xi:xf], angle, tras_x, tras_y)
-        cv2.imwrite('euclidiana.png', dst)
+        cv2.imwrite('o_euclidiana.png', dst)
 
     elif(k == ord('s')): # transformación similaridad
         dst = similaridad(img_aux[yi:yf,xi:xf], angle, tras_x, tras_y, scale)
-        cv2.imwrite('similaridad.png', dst)
+        cv2.imwrite('o_similaridad.png', dst)
 
     elif(k == ord('a') or afin_mode): # transformación afín
         # Controla que se ejecute una sola vez
         if(new_img == False):
             afin_mode = True
-            img     = cv2.imread('bombonera.png', 1)
+            img     = cv2.imread('i_bombonera.png', 1)
             img_aux = img.copy()
-            img2    = cv2.imread('escudo.png', 1)
+            img2    = cv2.imread('i_escudo.png', 1)
             new_img = True
         
         # Una vez que se hayan seleccionado los 3 puntos, llama a la transformada
         if(counter==3):
             dst = afin_y_combinacion(img2, x1, y1, x2, y2, x3, y3, img)
             
-            cv2.imwrite('combinacion.png', dst)
+            cv2.imwrite('o_combinacion.png', dst)
             img[:]     = dst
             img_aux[:] = dst
             
@@ -252,7 +252,7 @@ while(1):
         # Controla que se ejecute una sola vez
         if(new_img == False):
             rectification_mode = True
-            img     = cv2.imread('cancha.png', 1)
+            img     = cv2.imread('i_cancha.png', 1)
             img_aux = img.copy()
             new_img = True
         
@@ -260,7 +260,7 @@ while(1):
         if(counter==4):
             dst = rectificacion(img, x1, y1, x2, y2, x3, y3, x4, y4)
             
-            cv2.imwrite('rectificacion.png', dst)
+            cv2.imwrite('o_rectificacion.png', dst)
             img[:]     = dst
             img_aux[:] = dst
             
