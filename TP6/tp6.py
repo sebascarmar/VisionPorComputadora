@@ -24,7 +24,7 @@ def select_image(event, x, y, flags, param):
         if(drawing is True):
             img = img_aux.copy()
             (xf, yf) = (x, y)
-            cv2.rectangle(img, (xi,yi), (x,y), (255,0,255), 2)
+            cv2.rectangle(img, (xi,yi), (x,y), (0,0,0), 2)
     elif event == cv2.EVENT_LBUTTONUP:
         drawing = False
 
@@ -70,15 +70,15 @@ while(1):
         img = img_aux.copy()
 
     elif(k == ord('g')): # guarda recorte selccionado
-        cv2.imwrite('captura.png', img_aux[yi:yf,xi:xf])
+        cv2.imwrite('o_captura.png', img_aux[yi:yf,xi:xf])
 
     elif(k == ord('e')): # transformación ecuclidiana
         dst = euclidiana(img_aux[yi:yf,xi:xf], angle, tras_x, tras_y)
-        cv2.imwrite('euclidiana.png', dst)
+        cv2.imwrite('o_euclidiana.png', dst)
 
     elif(k == ord('s')): # transformación similaridad
         dst = similaridad(img_aux[yi:yf,xi:xf], angle, tras_x, tras_y, scale)
-        cv2.imwrite('similaridad.png', dst)
+        cv2.imwrite('o_similaridad.png', dst)
 
     elif(k == 27):
         break
