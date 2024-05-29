@@ -221,7 +221,7 @@ while(1):
 #            else:
 #                cal = cv2.resize(rec_aux, (500, int(500*factor_correccion)))
             
-            cal = cv2.resize(rec_aux, (10*int(rec_aux.shape[1]*(29.7/longConocidaA)), 10*int(rec_aux.shape[0]*(21/longConocidaA))))
+            cal = cv2.resize(rec_aux, (4*int(rec_aux.shape[1]*(29.7/longConocidaA)), 4*int(rec_aux.shape[0]*(21/longConocidaA))))
 
             cal_aux = cal.copy()
             #imagen_redimensionada = cv2.resize(aux, (935, 410))
@@ -232,7 +232,7 @@ while(1):
             cv2.setMouseCallback('Plano calibrado', medicion)
             
             # Reinicia contador y baja las banderas
-            counter   = 0
+            counter  = 0
          
             # Flag que indica que ya se encuentra el plano calibrado abierto
             planoCalibrado = True
