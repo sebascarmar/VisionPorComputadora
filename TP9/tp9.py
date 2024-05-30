@@ -200,29 +200,16 @@ while(1):
         k = cv2.waitKey(1) & 0xFF
         
         if(counter2==2):
-#            print(longConocidaA, longConocidaB)
-#            relacion_real = 93.5/41 
-#            #relacion_real = 1.0
-#            print(relacion_real)
-#            if(longConocidaA>longConocidaB):
-#                relacion_pix  = longConocidaA/longConocidaB
-#            else:
-#                relacion_pix  = longConocidaB/longConocidaA
-#            print(relacion_pix)
-#         
-#            if(relacion_pix<relacion_pix):
-#                factor_correccion = relacion_pix/relacion_real
-#            else:
-#                factor_correccion = relacion_real/relacion_pix
-#            print(factor_correccion)
-#
-#            print((int(rec_aux.shape[1]*factor_correccion), rec_aux.shape[0]))
-#            if(longConocidaA>longConocidaB):
-#                cal = cv2.resize(rec_aux, (int(rec_aux.shape[1]*factor_correccion), rec_aux.shape[0]))
-#            else:
-#                cal = cv2.resize(rec_aux, (500, int(500*factor_correccion)))
-            
-            cal = cv2.resize(rec_aux, (4*int(rec_aux.shape[1]*(29.7/longConocidaA)), 4*int(rec_aux.shape[0]*(21/longConocidaA))))
+            # Se calculan las relaciones pixel/cm, y el objetivo es que sean iguales
+            pixCm_Y = longConocidaB/15
+            pixCm_X = longConocidaA/15
+            # Para eso se busca un factor de correción
+            k = pixCm_Y/pixCm_X
+            # Aquí se aplica la correción
+            if(k>1):
+                cal = cv2.resize(rec_aux, (int(k*rec_aux.shape[1]),rec_aux.shape[0]))
+            else:
+                cal = cv2.resize(rec_aux, (rec_aux.shape[1],int(k*rec_aux.shape[0])))
 
             cal_aux = cal.copy()
             #imagen_redimensionada = cv2.resize(aux, (935, 410))
