@@ -245,17 +245,7 @@ while(1):
         k = cv2.waitKey(1) & 0xFF
 
         if(k == ord('r')):
-            cv2.destroyAllWindows()
-            # Apertura de la imagen y creación de su copia
-            img     = cv2.imread ('imagen.jpeg', 1)
-            img     = cv2.resize(img, (int(img.shape[1]/2), int(img.shape[0]/2)))
-            img_aux = img.copy()
-            # Seteo de los eventos del mouse
-            cv2.namedWindow('image')
-            cv2.setMouseCallback('image', sel_cuatro_puntos)
-            planoRectificado = False
-            planoCalibrado   = False
-            
+           cal = cal_aux.copy()
         elif(k == 27):
             break
 
