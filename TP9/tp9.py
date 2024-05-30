@@ -83,15 +83,14 @@ def calibracion(event, x, y, flags, param):
         else:
             longConocidaB = math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
             counter2 += 1
-
-        print(longConocidaA, longConocidaB)
+        
         drawing = False
 
 #----------------------------
 
 def medicion(event, x, y, flags, param):
     global x1, y1, x2, y2, drawing, cal, cal_aux
-    global  longAMedirA, longAMedirB
+    global  longAMedirA, longAMedirB, pixCm_Y
     
     if(event == cv2.EVENT_LBUTTONDOWN):
         drawing  = True
@@ -105,7 +104,9 @@ def medicion(event, x, y, flags, param):
         longAMedirA = x2-x1 if(x2>x1) else x1-x2
         longAMedirB = y2-y1 if(y2>y1) else y1-y2
         longMedidaPix = math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
-        cv2.putText(cal, str(longMedidaPix)+"cm", (x1,y1), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,255), 2, cv2.LINE_AA)
+        longMedidaCm  = longMedidaPix/pixCm_Y
+        
+        cv2.putText(cal, str(round(longMedidaCm,2))+"cm", (x1,y1), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,255), 2, cv2.LINE_AA)
         
         drawing = False
 
