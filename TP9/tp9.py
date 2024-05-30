@@ -126,7 +126,9 @@ def rectificacion(image, x1, y1, x2, y2, x3, y3, x4, y4):
                         [image.shape[1] - 1, image.shape[0] - 1]] ).astype(np.float32)
 
     aux = transform.rectification(image,srcTri, dstTri,(image.shape[1], image.shape[0]))
-    #imagen_redimensionada = cv2.resize(aux, (935, 410))
+
+    # Ajusta la imagen a un tamaño fijo siempre. Luego se corrige el ratio en la calibración
+    aux = cv2.resize(aux, (800, 410))
     #cv2.imwrite('planoCalibrado.png', imagen_redimensionada)
 
     return aux
