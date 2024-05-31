@@ -39,51 +39,56 @@ def sel_cuatro_puntos(event, x, y, flags, param):
 #----------------------------
 
 def calibracion(event, x, y, flags, param):
-    global x1, y1, x2, y2, drawing, rec, rec_aux
-    global counter2, longConocidaA, longConocidaB
+    global x1, y1, x2, y2, primerPto, segundoPto, rec, rec_aux
+    global counter, longConocidaA_pix, longConocidaB_pix
 
-    if(event == cv2.EVENT_LBUTTONDOWN):
-        drawing  = True
+    if(event == cv2.EVENT_LBUTTONDOWN and primerPto == False):
+        primerPto  = True
         (x1, y1) = (x, y)
-    elif(event == cv2.EVENT_MOUSEMOVE):
-        if(drawing is True):
-            rec = rec_aux.copy()
-            (x2, y2) = (x, y)
-            cv2.line(rec, (x1,y1), (x2,y2), (255,0,255), 2)
-    elif event == cv2.EVENT_LBUTTONUP:
-        if(counter2 <= 0):
-            #longConocidaA = x2-x1 if(x2>x1) else x1-x2
-            longConocidaA = math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
-            counter2 += 1
+        cv2.circle(rec, (x1,y1), 2, (255,0,255), -1)
+    elif(event == cv2.EVENT_LBUTTONDOWN and segundoPto == False):
+        segundoPto = True
+        (x2, y2) = (x, y)
+        cv2.circle(rec, (x2,y2), 2, (255,0,255), -1)
+    elif(event == cv2.EVENT_LBUTTONUP and primerPto == True and segundoPto == True):
+        if(counter == 0):
+            longConocidaA_pix = math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
+            counter += 1
         else:
-            longConocidaB = math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
-            counter2 += 1
+            longConocidaB_pix = math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
+            counter += 1
         
-        drawing = False
+        rec = rec_aux.copy()
+        cv2.line(rec, (x1,y1), (x2,y2), (255,0,255), 2)
+        
+        primerPto  = False
+        segundoPto = False
 
 #----------------------------
 
 def medicion(event, x, y, flags, param):
-    global x1, y1, x2, y2, drawing, cal, cal_aux
-    global  longAMedirA, longAMedirB, pixCm_Y
+    global x1, y1, x2, y2, primerPto, segundoPto, cal, cal_aux
+    global  longAMedirA_pix, longAMedirB_pix, pixCm_Y # Puede ser también pixCm_X
     
-    if(event == cv2.EVENT_LBUTTONDOWN):
-        drawing  = True
+    if(event == cv2.EVENT_LBUTTONDOWN and primerPto == False):
+        primerPto  = True
         (x1, y1) = (x, y)
-    elif(event == cv2.EVENT_MOUSEMOVE):
-        if(drawing is True):
-            cal = cal_aux.copy()
-            (x2, y2) = (x, y)
-            cv2.line(cal, (x1,y1), (x2,y2), (0,255,255), 2)
-    elif event == cv2.EVENT_LBUTTONUP:
-        longAMedirA = x2-x1 if(x2>x1) else x1-x2
-        longAMedirB = y2-y1 if(y2>y1) else y1-y2
+        cv2.circle(cal, (x1,y1), 2, (0,255,255), -1)
+    elif(event == cv2.EVENT_LBUTTONDOWN and segundoPto == False):
+        segundoPto  = True
+        (x2, y2) = (x, y)
+        cv2.circle(cal, (x2,y2), 2, (0,255,255), -1)
+    elif(event == cv2.EVENT_LBUTTONUP and primerPto == True and segundoPto == True):
+        cv2.line(cal, (x1,y1), (x2,y2), (0,255,255), 2)
+        longAMedirA_pix = x2-x1 if(x2>x1) else x1-x2
+        longAMedirB_pix = y2-y1 if(y2>y1) else y1-y2
         longMedidaPix = math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
         longMedidaCm  = longMedidaPix/pixCm_Y
         
-        cv2.putText(cal, str(round(longMedidaCm,2))+"cm", (x1,y1), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,255), 2, cv2.LINE_AA)
+        cv2.putText(cal, str(round(longMedidaCm,2))+"cm", (x1,y1), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,0), 2, cv2.LINE_AA)
         
-        drawing = False
+        primerPto  = False
+        segundoPto = False
 
 #----------------------------
 
