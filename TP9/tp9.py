@@ -118,23 +118,26 @@ def rectificacion(image, x1, y1, x2, y2, x3, y3, x4, y4):
 ########################## MAIN ##########################
 ##########################################################
 
-drawing  = False 
+drawing    = False 
+primerPto  = False 
+segundoPto = False 
 # Detecta si la imagen nueva ya fue abierta
 planoRectificado = False
 planoCalibrado   = False
 # Controla que se seleccionen 4 puntos para la rectificación
 counter  = 0
-counter2  = 0
 # Coordenadas para la transformación afin
 (x1, y1) = (0, 0)
 (x2, y2) = (0, 0)
 (x3, y3) = (0, 0)
 (x4, y4) = (0, 0)
 # Longitudes medidas en pixeles
-longConocidaA = 0
-longConocidaB = 0
-longAMedirA   = 0
-longAMedirB   = 0
+longConocidaA_cm = 15.0
+longConocidaB_cm = 15.0
+longConocidaA_pix = 0
+longConocidaB_pix = 0
+longAMedirA_pix   = 0
+longAMedirB_pix   = 0
 # Medidas conocidas de algún objeto
 #alto  = 
 #ancho
@@ -181,10 +184,10 @@ while(1):
         cv2.imshow('Plano rectificado - Realice calibracion', rec)
         k = cv2.waitKey(1) & 0xFF
         
-        if(counter2==2):
+        if(counter==2):
             # Se calculan las relaciones pixel/cm, y el objetivo es que sean iguales
-            pixCm_Y = longConocidaB/15
-            pixCm_X = longConocidaA/15
+            pixCm_Y = longConocidaB_pix/longConocidaB_cm
+            pixCm_X = longConocidaA_pix/longConocidaA_cm
             # Para eso se busca un factor de correción
             k = pixCm_Y/pixCm_X
             # Aquí se aplica la correción
