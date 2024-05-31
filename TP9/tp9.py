@@ -1,11 +1,6 @@
 # el programa debe permitir dibujar un rectángulo en la imagen. luego, al presionar:
-#   'g'  : debe guardar el recorte de imagen seleccionado.
-#   'e'  : aplica una transformación euclidiana al recorte seleccionado.
-#   's'  : aplica una transformación similaridad al recorte seleccionado.
-#   'a'  : aplica una transformación afin, e incrusta imagen en selección de 3 puntos.
-#   'r'  : debe eliminar la selección y permitir volver a seleccionar.
-#   'p'  : vuelve a mostrar la primer imagen abierta (la hoja en este caso).
 #   'esc': debe salir del programa.
+
 #41cmx93.5cm   -> acrílico de la mesa
 #22.3cmx29.5cm -> cuaderno
 #15cmx15cm     -> placa
@@ -214,8 +209,6 @@ while(1):
                 cal = cv2.resize(rec_aux, (rec_aux.shape[1],int(k*rec_aux.shape[0])))
 
             cal_aux = cal.copy()
-            #imagen_redimensionada = cv2.resize(aux, (935, 410))
-            #cv2.imwrite('planoCalibrado.png', imagen_redimensionada)
             
             cv2.destroyAllWindows()
             cv2.namedWindow('Plano calibrado')
