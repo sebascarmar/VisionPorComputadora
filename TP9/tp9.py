@@ -177,7 +177,7 @@ while(1):
         
         # Una vez que se hayan seleccionado los 3 puntos, llama a la transformada
         if(counter==4):
-            rec = rectificacion(img, x1, y1, x2, y2, x3, y3, x4, y4)
+            rec = rectificacion(img_aux, x1, y1, x2, y2, x3, y3, x4, y4)
             rec_aux = rec.copy()
             
             cv2.destroyAllWindows()
