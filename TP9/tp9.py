@@ -16,29 +16,9 @@ import math
 
 def sel_cuatro_puntos(event, x, y, flags, param):
     global x1, y1, x2, y2, x3, y3, x4, y4
-    global drawing, mode, img, counter 
+    global img, counter 
 
-    if(event == cv2.EVENT_LBUTTONDOWN):
-        drawing  = True
-        (xi, yi) = (x, y)
-
-    elif(event == cv2.EVENT_MOUSEMOVE):
-        if(drawing is True):
-            if(counter==0):
-                (x1, y1) = (x, y)
-                cv2.circle(img, (x,y), 2, (255,255,0), -1)
-            elif(counter==1):
-                (x2, y2) = (x, y)
-                cv2.circle(img, (x,y), 2, (255,255,0), -1)
-            elif(counter==2):
-                (x3, y3) = (x, y)
-                cv2.circle(img, (x,y), 2, (255,255,0), -1)
-            elif(counter==3):
-                (x4, y4) = (x, y)
-                cv2.circle(img, (x,y), 2, (255,255,0), -1)
-
-    elif event == cv2.EVENT_LBUTTONUP:
-        drawing = False
+    if event == cv2.EVENT_LBUTTONUP:
         if(counter==0):
             (x1, y1) = (x, y)
             cv2.circle(img, (x,y), 2, (255,255,0), -1)
