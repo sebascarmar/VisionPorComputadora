@@ -1,10 +1,14 @@
-# el programa debe permitir dibujar un rectángulo en la imagen. luego, al presionar:
-#   'esc': debe salir del programa.
+# El programa rectifica una imagen, la calibra con dos longitudes conocidas,
+#y permite medir. Se tienen las siguientes opciones:
+#   'r'  : permite limpiar el plano y seguir midiendo
+#   'esc': debe salir del programa
 
-#41cmx93.5cm   -> acrílico de la mesa
-#22.3cmx29.5cm -> cuaderno
-#15cmx15cm     -> placa
-#21.cmx29.7cm  -> hoja
+# Medidas de objetos:
+#   41x93.5 cm  -> acrílico de la mesa
+#   15x15   cm  -> placa
+#   21x29.7 cm  -> hoja
+#   31.5x3  cm  -> regla
+#   8.6x5.4 cm  -> tarjeta
 
 import cv2
 import numpy as np
