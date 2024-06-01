@@ -117,16 +117,14 @@ def rectificacion(image, x1, y1, x2, y2, x3, y3, x4, y4):
 ##########################################################
 ########################## MAIN ##########################
 ##########################################################
-
-drawing    = False 
+# Banderas
 primerPto  = False 
 segundoPto = False 
-# Detecta si la imagen nueva ya fue abierta
 planoRectificado = False
 planoCalibrado   = False
-# Controla que se seleccionen 4 puntos para la rectificación
+# Control de selección de puntos en rectificación y calibración
 counter  = 0
-# Coordenadas para la transformación afin
+# Coordenadas para la rectificación, calibración y medición
 (x1, y1) = (0, 0)
 (x2, y2) = (0, 0)
 (x3, y3) = (0, 0)
@@ -138,9 +136,6 @@ longConocidaA_pix = 0
 longConocidaB_pix = 0
 longAMedirA_pix   = 0
 longAMedirB_pix   = 0
-# Medidas conocidas de algún objeto
-#alto  = 
-#ancho
 
 # Apertura de la imagen y creación de su copia
 img     = cv2.imread ('imagen.jpeg', 1)
@@ -167,17 +162,13 @@ while(1):
             cv2.namedWindow('Plano rectificado - Realice calibracion')
             cv2.setMouseCallback('Plano rectificado - Realice calibracion', calibracion)
             
-            # Reinicia contador y baja las banderas
+            # Reinicia contador
             counter   = 0
             
-           ########## # Da valores para evitar que se rompa el programa si se ejecuta operación sin rectángulo dibujado
-            (x1, y1) = (0, 0)
-            (x2, y2) = (0, 0)
-            
-            # Flag que indica que ya se encuentra el plano calibrado abierto
+            # Flag que indica que ya se hizo la rectificación
             planoRectificado = True
-        
-        if(k == 27):
+         
+        elif(k == 27):
             break
         
     elif(planoCalibrado == False):
@@ -195,20 +186,17 @@ while(1):
                 cal = cv2.resize(rec_aux, (int(k*rec_aux.shape[1]),rec_aux.shape[0]))
             else:
                 cal = cv2.resize(rec_aux, (rec_aux.shape[1],int(k*rec_aux.shape[0])))
-
+            
             cal_aux = cal.copy()
             
             cv2.destroyAllWindows()
             cv2.namedWindow('Plano calibrado')
             cv2.setMouseCallback('Plano calibrado', medicion)
             
-            # Reinicia contador y baja las banderas
-            counter  = 0
-         
-            # Flag que indica que ya se encuentra el plano calibrado abierto
+            # Flag que indica que ya se encuentra el plano calibrado 
             planoCalibrado = True
-
-        if(k == ord('r')):
+         
+        elif(k == ord('r')):
             cv2.destroyAllWindows()
             # Apertura de la imagen y creación de su copia
             img     = cv2.imread ('imagen.jpeg', 1)
@@ -226,7 +214,7 @@ while(1):
     else:
         cv2.imshow('Plano calibrado', cal)
         k = cv2.waitKey(1) & 0xFF
-
+        
         if(k == ord('r')):
            cal = cal_aux.copy()
         elif(k == 27):
