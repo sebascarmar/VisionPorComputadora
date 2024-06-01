@@ -139,7 +139,7 @@ longAMedirB_pix   = 0
 
 # Apertura de la imagen y creación de su copia
 img     = cv2.imread ('imagen.jpeg', 1)
-img     = cv2.resize(img, (int(img.shape[1]/3), int(img.shape[0]/3)))
+img     = cv2.resize(img, (int(img.shape[1]/2.2), int(img.shape[0]/2.2)))
 img_aux = img.copy()
 
 # Seteo de los eventos del mouse
