@@ -62,7 +62,6 @@ def calibracion(event, x, y, flags, param):
             longConocidaB_pix = math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
             counter += 1
         
-        rec = rec_aux.copy()
         cv2.line(rec, (x1,y1), (x2,y2), (255,0,255), 2)
         
         primerPto  = False
