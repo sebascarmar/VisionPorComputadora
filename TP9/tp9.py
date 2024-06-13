@@ -25,19 +25,19 @@ def sel_cuatro_puntos(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONUP:
         if(counter==0):
             (x1, y1) = (x, y)
-            cv2.circle(img, (x,y), 2, (255,255,0), -1)
+            cv2.circle(img, (x,y), 4, (255,255,0), -1)
             counter += 1
         elif(counter==1):
             (x2, y2) = (x, y)
-            cv2.circle(img, (x,y), 2, (255,255,0), -1)
+            cv2.circle(img, (x,y), 4, (255,255,0), -1)
             counter += 1
         elif(counter==2):
             (x3, y3) = (x, y)
-            cv2.circle(img, (x,y), 2, (255,255,0), -1)
+            cv2.circle(img, (x,y), 4, (255,255,0), -1)
             counter += 1
         elif(counter==3):
             (x4, y4) = (x, y)
-            cv2.circle(img, (x,y), 2, (255,255,0), -1)
+            cv2.circle(img, (x,y), 4, (255,255,0), -1)
             counter += 1
 
 #----------------------------
@@ -49,11 +49,11 @@ def calibracion(event, x, y, flags, param):
     if(event == cv2.EVENT_LBUTTONDOWN and primerPto == False):
         primerPto  = True
         (x1, y1) = (x, y)
-        cv2.circle(rec, (x1,y1), 2, (255,0,255), -1)
+        cv2.circle(rec, (x1,y1), 4, (255,0,255), -1)
     elif(event == cv2.EVENT_LBUTTONDOWN and segundoPto == False):
         segundoPto = True
         (x2, y2) = (x, y)
-        cv2.circle(rec, (x2,y2), 2, (255,0,255), -1)
+        cv2.circle(rec, (x2,y2), 4, (255,0,255), -1)
     elif(event == cv2.EVENT_LBUTTONUP and primerPto == True and segundoPto == True):
         if(counter == 0):
             longConocidaA_pix = math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
@@ -62,7 +62,6 @@ def calibracion(event, x, y, flags, param):
             longConocidaB_pix = math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
             counter += 1
         
-        rec = rec_aux.copy()
         cv2.line(rec, (x1,y1), (x2,y2), (255,0,255), 2)
         
         primerPto  = False
@@ -77,11 +76,11 @@ def medicion(event, x, y, flags, param):
     if(event == cv2.EVENT_LBUTTONDOWN and primerPto == False):
         primerPto  = True
         (x1, y1) = (x, y)
-        cv2.circle(cal, (x1,y1), 2, (0,255,255), -1)
+        cv2.circle(cal, (x1,y1), 4, (0,255,255), -1)
     elif(event == cv2.EVENT_LBUTTONDOWN and segundoPto == False):
         segundoPto  = True
         (x2, y2) = (x, y)
-        cv2.circle(cal, (x2,y2), 2, (0,255,255), -1)
+        cv2.circle(cal, (x2,y2), 4, (0,255,255), -1)
     elif(event == cv2.EVENT_LBUTTONUP and primerPto == True and segundoPto == True):
         cv2.line(cal, (x1,y1), (x2,y2), (0,255,255), 2)
         longAMedirA_pix = x2-x1 if(x2>x1) else x1-x2
@@ -112,7 +111,7 @@ def rectificacion(image, x1, y1, x2, y2, x3, y3, x4, y4):
     aux = transform.rectification(image,srcTri, dstTri,(image.shape[1], image.shape[0]))
 
     # Ajusta la imagen a un tamaño fijo siempre. Luego se corrige el ratio en la calibración
-    aux = cv2.resize(aux, (800, 410))
+    aux = cv2.resize(aux, (800, 500))
     #cv2.imwrite('planoCalibrado.png', imagen_redimensionada)
 
     return aux
@@ -143,7 +142,7 @@ longAMedirB_pix   = 0
 
 # Apertura de la imagen y creación de su copia
 img     = cv2.imread ('imagen.jpeg', 1)
-img     = cv2.resize(img, (int(img.shape[1]/2.2), int(img.shape[0]/2.2)))
+img     = cv2.resize(img, (int(img.shape[1]/2.5), int(img.shape[0]/2.5)))
 img_aux = img.copy()
 
 # Seteo de los eventos del mouse
