@@ -1,5 +1,12 @@
 # Ejecuté este comando: pip install --upgrade opencv-contrib-python  
 
+# El programa detecta el marcador 33 de Aruco, y a partir de su centro
+#puede dibujar en base a su movimiento. La aplicación es para controlar
+#el camino de un robot mediante una cámara. Con:
+#   'd'  : permite que se dibuje o se deje de dibujar.
+#   'r'  : limpia la pantalla de cualquier dibujo.
+#   'esc': sale del programa
+
 import cv2
 import numpy as np
 
@@ -22,6 +29,10 @@ while(1):
     # Detecta el marcadores en la imagen
     corners,ids,rejected = cv2.aruco.detectMarkers(frame, diccionario, parameters=parameters)
     if(ids == 33):
+        # Dibuja el marcador detectado en la imagen
+        frame = cv2.aruco.drawDetectedMarkers(frame, corners, ids)
+        
+        # Calcula el centro del Aruco
         x0 = corners[0][0][0][0]
         x1 = corners[0][0][1][0]
         x2 = corners[0][0][2][0]
@@ -49,9 +60,11 @@ while(1):
 
     key = cv2.waitKey(50)
 
-    if(key == ord('d')):
+    if(key == ord('d')):     # Togglea entre dibujar y no dibujar
         dibujar = not dibujar
-    elif(key == ord('r')):
+    elif(key == ord('r')):   # Limpia la pantalla
         posiciones_centro_id.clear()
-    elif(key==27):
+    elif(key==27):           # Sale del bucle
          break
+
+
