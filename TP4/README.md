@@ -9,3 +9,8 @@ pueden realizar las siguientes acciones la presionar determiandas teclas:
 
 - 'esc': debe salir del programa
 
+El programa se ejecuta con el siguiente comando:
+
+```bash
+> python3.8 tp4.py
+```

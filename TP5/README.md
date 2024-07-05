@@ -11,3 +11,10 @@ en _x_ y en _y_, y rota 45º. Estos valores pueden ser cambiados en el código.
 - 'r'  : elimina la selección y permite volver a seleccionar.
 
 - 'esc': sale del programa
+
+
+El programa se ejecuta con el siguiente comando:
+
+```bash
+> python3.8 tp5.py
+```
