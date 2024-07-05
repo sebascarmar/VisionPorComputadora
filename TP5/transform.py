@@ -8,6 +8,8 @@ def translate(image, x, y):
                     [0,1,y]])
 
     shifted = cv2.warpAffine(image, M, (w,h))
+    cv2.imwrite('o_recorte.png', image)
+    cv2.imwrite('o_trasladada.png', shifted)
 
     return shifted
 
