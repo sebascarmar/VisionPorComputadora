@@ -50,6 +50,7 @@ while(1):
             posiciones_centro_id.append((centro_x,centro_y))
 #        # Dibuja los marcadores detectados en la imagen
 #        frame = cv2.aruco.drawDetectedMarkers(frame, corners, ids)
+        cv2.putText(frame, f"({centro_x}px,{centro_y}px)", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
 
     # Dibuja las posiciones almacenadas, reflejando un dibujo continuo
     for i in range(1, len(posiciones_centro_id)):
