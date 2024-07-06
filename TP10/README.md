@@ -25,10 +25,8 @@ El programa se ejecuta con el siguiente comando:
 ## 2. Medición de longitudes en un plano en perspectiva
 
 La idea surge por la consigna del TP9, pero pudiendo realizar mediciones sin necesidad de rectificar
-el plano. Es decir, se puede medir estando aún en perspectiva.
-
-El programa se ejectua y automáticamente se pueden marcar los extremos que forman la longitud que se 
-desea medir.
+el plano. Es decir, se puede medir estando aún en perspectiva. Al iniciar el programa automáticamente 
+se pueden marcar los extremos que forman la longitud que se desea medir.
 
 El programa se ejecuta con el siguiente comando:
 ``` bash
